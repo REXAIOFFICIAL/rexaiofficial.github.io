@@ -112,7 +112,7 @@
       background: linear-gradient(45deg, #006fa0, #1b6bff);
     }
 
-    /* Mobile toggle button */
+    /* Mobile toggle button (dots) */
     .mobile-toggle {
       display: none;
       background: transparent;
@@ -122,14 +122,15 @@
       margin-left: 12px;
       align-items: center;
       justify-content: center;
+      gap: 6px;
+      display: inline-flex;
     }
-    .hamburger-line {
-      display: block;
-      width: 22px;
-      height: 2px;
+    .hamburger-dot {
+      width: 6px;
+      height: 6px;
       background: #00d4ff;
-      margin: 4px 0;
-      border-radius: 2px;
+      border-radius: 50%;
+      display: inline-block;
     }
 
     /* Mobile menu (hidden by default) */
@@ -296,11 +297,11 @@
         </button>
       </div>
 
-      <!-- Hamburger for mobile -->
-      <button id="mobileToggle" class="mobile-toggle" aria-label="Open menu">
-        <span class="."></span>
-        <span class="."></span>
-        <span class="."></span>
+      <!-- Hamburger (dots) for mobile -->
+      <button id="mobileToggle" class="mobile-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-dot" aria-hidden="true"></span>
+        <span class="hamburger-dot" aria-hidden="true"></span>
+        <span class="hamburger-dot" aria-hidden="true"></span>
       </button>
 
       <!-- Mobile menu (hidden by default; toggled on) -->
@@ -439,6 +440,7 @@
         e.stopPropagation();
         const isOpen = mobileMenu.classList.toggle('open');
         mobileMenu.setAttribute('aria-hidden', !isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
         toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
       });
 
@@ -447,6 +449,7 @@
         a.addEventListener('click', function() {
           mobileMenu.classList.remove('open');
           mobileMenu.setAttribute('aria-hidden', 'true');
+          toggle.setAttribute('aria-expanded', 'false');
           toggle.setAttribute('aria-label', 'Open menu');
         });
       });
@@ -457,6 +460,7 @@
         if (!isClickInside && mobileMenu.classList.contains('open')) {
           mobileMenu.classList.remove('open');
           mobileMenu.setAttribute('aria-hidden', 'true');
+          toggle.setAttribute('aria-expanded', 'false');
           toggle.setAttribute('aria-label', 'Open menu');
         }
       });
