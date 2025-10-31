@@ -256,7 +256,6 @@
       .content { grid-template-columns: 1fr; }
       .section { padding: 25px; }
       .stats { grid-template-columns: repeat(2, 1fr); }
-      /* Make mobile menu full width under nav for very small screens */
       .mobile-menu { right: 8px; left: 8px; width: auto; max-width: calc(100% - 16px); }
     }
 
@@ -286,8 +285,16 @@
         </ul>
       </div>
 
-      <!-- Desktop actions -->
+      <!-- Desktop/Mobile AND Sign Up/Feedback actions -->
       <div class="nav-actions">
+        <button id="desktopBtn" class="action-btn" aria-label="Open Desktop Version">
+          <i class="fas fa-desktop"></i> Desktop
+        </button>
+
+        <button id="mobileBtn" class="action-btn secondary" aria-label="Open Mobile Version">
+          <i class="fas fa-mobile-alt"></i> Mobile
+        </button>
+
         <button id="signupBtn" class="action-btn" aria-label="Sign Up">
           <i class="fas fa-user-plus"></i> Sign Up
         </button>
@@ -314,6 +321,15 @@
         </ul>
 
         <div class="mobile-actions">
+          <!-- Keep desktop/mobile and sign up/feedback in mobile menu -->
+          <button id="mobileDesktopBtn" class="action-btn" aria-label="Open Desktop Version Mobile">
+            <i class="fas fa-desktop"></i> Desktop
+          </button>
+
+          <button id="mobileMobileBtn" class="action-btn secondary" aria-label="Open Mobile Version Mobile">
+            <i class="fas fa-mobile-alt"></i> Mobile
+          </button>
+
           <button id="mobileSignupBtn" class="action-btn" aria-label="Sign Up Mobile">
             <i class="fas fa-user-plus"></i> Sign Up
           </button>
@@ -423,7 +439,15 @@
       }
     }
 
-    // Desktop Sign Up and Feedback handlers (still wired)
+    // Desktop / Mobile button handlers (top-right)
+    document.getElementById('desktopBtn')?.addEventListener('click', function () {
+      openAndFocus('https://rexaiofficial.github.io/web-version-desktop-/');
+    });
+    document.getElementById('mobileBtn')?.addEventListener('click', function () {
+      openAndFocus('https://rexaiofficial.github.io/web-version-mobile-/');
+    });
+
+    // Sign Up and Feedback handlers (top-right)
     document.getElementById('signupBtn')?.addEventListener('click', function () {
       openAndFocus('https://forms.gle/rJxSxCxASsf6LA7v9');
     });
@@ -466,6 +490,16 @@
       });
 
       // Wire mobile action buttons to same handlers
+      document.getElementById('mobileDesktopBtn')?.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        openAndFocus('https://rexaiofficial.github.io/web-version-desktop-/');
+      });
+
+      document.getElementById('mobileMobileBtn')?.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        openAndFocus('https://rexaiofficial.github.io/web-version-mobile-/');
+      });
+
       document.getElementById('mobileSignupBtn')?.addEventListener('click', function() {
         mobileMenu.classList.remove('open');
         openAndFocus('https://forms.gle/rJxSxCxASsf6LA7v9');
